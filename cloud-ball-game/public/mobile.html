@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mobile Ball</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #222;
+    }
+    #ball {
+      width: 50px;
+      height: 50px;
+      background: red;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+  <div id="ball"></div>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="socket-client.js"></script>
+  <script>
+    const ball = document.getElementById('ball');
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight / 2;
+
+    socket.on('move', ({ direction }) => {
+      const step = 20;
+      if (direction === 'ArrowUp') y -= step;
+      if (direction === 'ArrowDown') y += step;
+      if (direction === 'ArrowLeft') x -= step;
+      if (direction === 'ArrowRight') x += step;
+      ball.style.left = x + 'px';
+      ball.style.top = y + 'px';
+    });
+  </script>
+</body>
+</html>
